@@ -23,4 +23,9 @@ Take one down and pass it around, #{num-1} bottle of beer on the wall.
     end
   end
 
+  def verses(upper, lower)
+    (lower..upper).to_a.reverse.map do |num|
+      verse(num)
+    end.join("\n")
+  end
 end
