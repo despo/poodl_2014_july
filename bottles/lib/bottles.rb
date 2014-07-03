@@ -28,4 +28,8 @@ Take one down and pass it around, #{num-1} bottle of beer on the wall.
       verse(num)
     end.join("\n")
   end
+
+  def song
+    verses(99,0)
+  end
 end
