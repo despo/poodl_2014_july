@@ -1,4 +1,5 @@
 # Feel free to delete the instructions once you get going
+require './lib/bottle_number'
 puts instructions(__FILE__)
 
 class Bottles
@@ -11,31 +12,11 @@ class Bottles
   end
 
   def verse(current_bottle_number)
-    next_bottle_number = next_bottle_number(current_bottle_number)
+    bottle_number = BottleNumber.new(current_bottle_number)
+    next_bottle_number = BottleNumber.new(bottle_number.next)
 
-    "#{quantity(current_bottle_number).capitalize} #{container(current_bottle_number)} of beer on the wall, #{quantity(current_bottle_number)} #{container(current_bottle_number)} of beer.\n#{action(current_bottle_number)}, #{quantity(next_bottle_number)} #{container(next_bottle_number)} of beer on the wall.\n"
+    "#{bottle_number.quantity.capitalize} #{bottle_number.container} of beer on the wall, #{bottle_number.quantity} #{bottle_number.container} of beer.\n#{bottle_number.action}, #{next_bottle_number.quantity} #{next_bottle_number.container} of beer on the wall.\n"
 
   end
 
-  private
-
-  def container(number_of_bottles)
-    number_of_bottles == 1 ? "bottle" : "bottles"
-  end
-
-  def pronoun(number_of_bottles)
-    number_of_bottles == 1 ? "it" : "one"
-  end
-
-  def quantity(number_of_bottles)
-    number_of_bottles == 0 ? "no more" : number_of_bottles.to_s
-  end
-
-  def action(number_of_bottles)
-    number_of_bottles == 0 ? "Go to the store and buy some more" : "Take #{pronoun(number_of_bottles)} down and pass it around"
-  end
-
-  def next_bottle_number(number_of_bottles)
-    number_of_bottles == 0 ? 99 : number_of_bottles-1
-  end
 end
