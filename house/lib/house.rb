@@ -22,5 +22,9 @@ class House
     LINES[number-1]
   end
 
+  def recite
+    LINES.join("\n")
+  end
+
 
 end
