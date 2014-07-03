@@ -11,13 +11,10 @@ class Bottles
   end
 
   def verse(current_bottle_number)
-    next_bottle_number = current_bottle_number - 1
-    case current_bottle_number
-    when 0
-      "No more bottles of beer on the wall, #{bottles_left(current_bottle_number)} bottles of beer.\nGo to the store and buy some more, 99 bottles of beer on the wall.\n"
-    else
-      "#{current_bottle_number} #{container(current_bottle_number)} of beer on the wall, #{current_bottle_number} #{container(current_bottle_number)} of beer.\nTake #{pronoun(current_bottle_number)} down and pass it around, #{bottles_left(next_bottle_number)} #{container(next_bottle_number)} of beer on the wall.\n"
-    end
+    next_bottle_number = next_bottle_number(current_bottle_number)
+
+    "#{quantity(current_bottle_number).capitalize} #{container(current_bottle_number)} of beer on the wall, #{quantity(current_bottle_number)} #{container(current_bottle_number)} of beer.\n#{action(current_bottle_number)}, #{quantity(next_bottle_number)} #{container(next_bottle_number)} of beer on the wall.\n"
+
   end
 
   private
@@ -26,11 +23,19 @@ class Bottles
     number_of_bottles == 1 ? "bottle" : "bottles"
   end
 
-  def pronoun(remaining_beers)
-    remaining_beers == 1 ? "it" : "one"
+  def pronoun(number_of_bottles)
+    number_of_bottles == 1 ? "it" : "one"
   end
 
-  def bottles_left(current_bottle)
-    current_bottle < 1 ? "no more" : current_bottle
+  def quantity(number_of_bottles)
+    number_of_bottles == 0 ? "no more" : number_of_bottles.to_s
+  end
+
+  def action(number_of_bottles)
+    number_of_bottles == 0 ? "Go to the store and buy some more" : "Take #{pronoun(number_of_bottles)} down and pass it around"
+  end
+
+  def next_bottle_number(number_of_bottles)
+    number_of_bottles == 0 ? 99 : number_of_bottles-1
   end
 end
