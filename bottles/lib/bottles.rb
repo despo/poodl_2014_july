@@ -8,15 +8,14 @@ class Bottles
   end
 
   def verses(upper, lower)
-    upper.downto(lower).map { |bottle_number| verse(bottle_number) }.join("\n")
+    upper.downto(lower).map { |n| verse(n) }.join("\n")
   end
 
   def verse(current_bottle_number)
-    bottle_number = BottleNumber.new(current_bottle_number)
-    next_bottle_number = BottleNumber.new(bottle_number.next)
+    bottle_number = BottleNumber.get_bottle_for(current_bottle_number)
+    next_bottle_number = BottleNumber.get_bottle_for(bottle_number.next)
 
     "#{bottle_number.quantity.capitalize} #{bottle_number.container} of beer on the wall, #{bottle_number.quantity} #{bottle_number.container} of beer.\n#{bottle_number.action}, #{next_bottle_number.quantity} #{next_bottle_number.container} of beer on the wall.\n"
-
   end
 
 end

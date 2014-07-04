@@ -1,32 +1,63 @@
 class BottleNumber
 
+  def self.get_bottle_for(num)
+    num_class = num <= 1 ? num : ''
+
+    Kernel.const_get("BottleNumber#{num_class}").new(num)
+  end
+
   def initialize(number)
     @number = number
   end
 
   def container
-    number == 1 ? "bottle" : "bottles"
+    "bottles"
   end
 
   def pronoun
-    number == 1 ? "it" : "one"
+    "one"
   end
 
   def action
-    number == 0 ? "Go to the store and buy some more" : "Take #{pronoun} down and pass it around"
+    "Take #{pronoun} down and pass it around"
   end
 
   def next
-    number == 0 ? 99 : number-1
+    number-1
   end
 
   def quantity
-    number == 0 ? "no more" : number.to_s
+    number.to_s
   end
 
   private
 
-  def number
-    @number
+  attr_reader :number
+
+end
+
+class BottleNumber0 < BottleNumber
+
+  def action
+    "Go to the store and buy some more"
+  end
+
+  def next
+    99
+  end
+
+  def quantity
+    "no more"
+  end
+end
+
+class BottleNumber1 < BottleNumber
+
+  def container
+    "bottle"
+  end
+
+  def pronoun
+    "it"
   end
 end
